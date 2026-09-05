@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billetera Central</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <header>
+      <h1>Mis Tarjetas & Saldos</h1>
+    </header>
+
+    <main id="cards-container">
+      <!-- Las tarjetas se generan dinámicamente con JS -->
+    </main>
+
+    <footer>
+      <button id="nfc-pay-btn" class="pay-btn">
+        <span class="nfc-icon">📱</span> Pagar con esta tarjeta (NFC)
+      </button>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>
