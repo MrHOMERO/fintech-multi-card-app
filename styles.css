@@ -1,0 +1,130 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, border 0.2s;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.card.selected {
+  border-color: #ffffff;
+  transform: scale(1.02);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.bank-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.card-type {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.card-balance {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  letter-spacing: 1px;
+}
+
+footer {
+  margin-top: 20px;
+  padding-bottom: 10px;
+}
+
+.pay-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.pay-btn:active {
+  background-color: #dddddd;
+}
+
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #323232;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  transition: opacity 0.3s;
+}
+
+.toast.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
