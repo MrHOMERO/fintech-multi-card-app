@@ -8,19 +8,115 @@
 </head>
 <body>
   <div class="app-container">
-    <header>
-      <h1>Mis Tarjetas & Saldos</h1>
-    </header>
 
-    <main id="cards-container">
-      <!-- Las tarjetas se generan dinámicamente con JS -->
-    </main>
+    <!-- Pantalla 1: Login -->
+    <section id="login-view" class="view">
+      <header>
+        <h1>Billetera Central</h1>
+        <p class="subtitle">Inicia sesión para continuar</p>
+      </header>
+      <form id="login-form">
+        <div class="input-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" required placeholder="tu@email.com">
+        </div>
+        <div class="input-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" required placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn primary">Iniciar Sesión</button>
+        <button type="button" id="go-recovery-btn" class="btn text">¿Olvidaste tu contraseña?</button>
+      </form>
+    </section>
 
-    <footer>
-      <button id="nfc-pay-btn" class="pay-btn">
-        <span class="nfc-icon">📱</span> Pagar con esta tarjeta (NFC)
-      </button>
-    </footer>
+    <!-- Pantalla 2: Recuperación de Cuenta -->
+    <section id="recovery-view" class="view hidden">
+      <header>
+        <h1>Recuperar Cuenta</h1>
+        <p class="subtitle">Te enviaremos un código de respaldo a tu correo</p>
+      </header>
+      <form id="recovery-form">
+        <div class="input-group">
+          <label for="recovery-email">Correo registrado</label>
+          <input type="email" id="recovery-email" required placeholder="tu@email.com">
+        </div>
+        <button type="submit" class="btn primary">Enviar Respaldo</button>
+        <button type="button" id="back-login-btn" class="btn text">Volver al inicio de sesión</button>
+      </form>
+    </section>
+
+    <!-- Pantalla 3: Dashboard Principal -->
+    <section id="dashboard-view" class="view hidden">
+      <header class="dashboard-header">
+        <div>
+          <h1>Mis Tarjetas & Saldos</h1>
+          <p id="user-greeting" class="subtitle"></p>
+        </div>
+        <button id="logout-btn" class="btn secondary icon-btn" title="Cerrar Sesión">🚪</button>
+      </header>
+
+      <main id="cards-container"></main>
+
+      <div class="action-bar">
+        <button id="open-add-modal-btn" class="btn secondary">+ Agregar Tarjeta</button>
+      </div>
+
+      <footer>
+        <button id="nfc-pay-btn" class="btn primary pay-btn">
+          <span class="nfc-icon">📱</span> Pagar por Contactless (NFC)
+        </button>
+      </footer>
+    </section>
+
+  </div>
+
+  <!-- Modal para Agregar Tarjeta -->
+  <div id="add-card-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Nueva Tarjeta</h2>
+      <form id="add-card-form">
+        <div class="input-group">
+          <label for="bank-name">Banco / Emisor</label>
+          <input type="text" id="bank-name" required placeholder="Ej. eBROU, Prex, Itaú">
+        </div>
+        <div class="input-group">
+          <label for="card-holder">Titular de la tarjeta</label>
+          <input type="text" id="card-holder" required placeholder="Nombre como figura en el plástico">
+        </div>
+        <div class="input-group">
+          <label for="last-digits">Últimos 4 dígitos</label>
+          <input type="text" id="last-digits" maxlength="4" pattern="\d{4}" required placeholder="1234">
+        </div>
+        <div class="input-group">
+          <label for="balance">Saldo inicial</label>
+          <input type="number" step="0.01" id="balance" required placeholder="0.00">
+        </div>
+        <div class="input-group">
+          <label for="currency">Moneda</label>
+          <select id="currency">
+            <option value="UYU">UYU ($)</option>
+            <option value="USD">USD ($)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="card-type">Tipo de Tarjeta</label>
+          <select id="card-type">
+            <option value="Débito">Débito</option>
+            <option value="Crédito">Crédito</option>
+            <option value="Prepaga">Prepaga</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label for="card-color">Color de la tarjeta</label>
+          <input type="color" id="card-color" value="#00529B">
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="close-add-modal-btn" class="btn secondary">Cancelar</button>
+          <button type="submit" class="btn primary">Guardar</button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <div id="toast" class="toast hidden"></div>
