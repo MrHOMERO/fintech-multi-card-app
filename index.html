@@ -3,90 +3,144 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Billetera Central</title>
+  <title>Billetera Unificada PRO</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app-container">
 
-    <!-- PANTALLA 1: LOGIN / REGISTRO -->
-    <section id="step-login" class="step-view">
+    <section id="step-1" class="step-view">
       <header>
-        <h1>Billetera Central</h1>
-        <p class="subtitle">Paso 1: Acceso a la cuenta</p>
+        <h1>Billetera Unificada</h1>
+        <p class="subtitle">Paso 1: Seguridad & Acceso de Grado Bancario</p>
       </header>
-      <form id="login-form">
+      <form id="form-login">
         <div class="input-group">
-          <label for="username">Nombre de usuario</label>
+          <label>Nombre de usuario</label>
           <input type="text" id="username" required placeholder="Ej. Carlos">
         </div>
         <div class="input-group">
-          <label for="email">Correo electrónico (Confirmación)</label>
-          <input type="email" id="email" required placeholder="tu@email.com">
+          <label>Correo para respaldos y alertas</label>
+          <input type="email" id="email" required placeholder="carlos@email.com">
         </div>
         <div class="input-group">
-          <label for="password">Contraseña</label>
+          <label>Contraseña Maestra</label>
           <input type="password" id="password" required placeholder="••••••••">
         </div>
-        <button type="submit" class="btn primary">Continuar ➔</button>
+        <button type="submit" class="btn primary">Crear Cuenta Segura ➔</button>
       </form>
     </section>
 
-    <!-- PANTALLA 2: REGISTRO DE TARJETA -->
-    <section id="step-add-card" class="step-view hidden">
+    <section id="step-2" class="step-view hidden">
       <header>
-        <h1>Agregar Tarjeta</h1>
-        <p class="subtitle">Paso 2: Datos del plástico</p>
+        <h1>Vincular Plástico</h1>
+        <p class="subtitle">Paso 2: Datos de la tarjeta de débito/crédito</p>
       </header>
-      <form id="card-form">
+      <form id="form-card">
         <div class="input-group">
-          <label for="bank-name">Entidad / Banco</label>
-          <input type="text" id="bank-name" required placeholder="Ej. eBROU, Prex, Itaú">
+          <label>Entidad / Banco Emisor</label>
+          <input type="text" id="bank" required placeholder="Ej. eBROU, Prex, Itaú, Santander">
         </div>
         <div class="input-group">
-          <label for="card-number">Número de tarjeta</label>
-          <input type="text" id="card-number" maxlength="19" required placeholder="4509 1234 5678 9012">
+          <label>Número de Tarjeta (16 dígitos)</label>
+          <input type="text" id="card-num" maxlength="19" required placeholder="4509 1234 5678 9012">
         </div>
         <div class="input-group">
-          <label for="card-holder">Nombre del titular</label>
-          <input type="text" id="card-holder" required placeholder="Como figura en la tarjeta">
+          <label>Nombre del Titular</label>
+          <input type="text" id="holder" required placeholder="TAL CUAL FIGURA EN EL PLÁSTICO">
         </div>
         <div class="row">
           <div class="input-group">
-            <label for="expiry">Vencimiento</label>
+            <label>Vencimiento</label>
             <input type="text" id="expiry" maxlength="5" required placeholder="MM/AA">
           </div>
           <div class="input-group">
-            <label for="cvv">Código CVV</label>
+            <label>Código CVV</label>
             <input type="password" id="cvv" maxlength="4" required placeholder="123">
           </div>
         </div>
         <div class="input-group">
-          <label for="balance">Saldo disponible ($)</label>
-          <input type="number" step="0.01" id="balance" required placeholder="1000.00">
+          <label>Saldo / Límite Disponible ($)</label>
+          <input type="number" step="0.01" id="balance" required placeholder="15000.00">
         </div>
-        <button type="submit" class="btn primary">Vincular Tarjeta ➔</button>
+        <button type="submit" class="btn primary">Vincular a Billetera ➔</button>
       </form>
     </section>
 
-    <!-- PANTALLA 3: BILLETERA / DASHBOARD -->
-    <section id="step-dashboard" class="step-view hidden">
-      <header class="dashboard-header">
+    <section id="step-3" class="step-view hidden">
+      <header class="top-nav">
         <div>
-          <h1>Mis Tarjetas</h1>
-          <p id="user-display" class="subtitle"></p>
+          <h1 id="user-title">Mi Billetera</h1>
+          <p class="subtitle" id="total-balance">Saldo Total: $0.00</p>
         </div>
-        <button id="logout-btn" class="btn icon-btn" title="Salir">🚪</button>
+        <button id="btn-subs" class="btn text-btn">⚡ Suscripciones</button>
       </header>
 
-      <main id="cards-list"></main>
+      <main id="cards-container"></main>
 
-      <div class="bottom-actions">
-        <button id="go-add-another-btn" class="btn secondary">+ Agregar otra tarjeta</button>
-        <button id="nfc-pay-btn" class="btn primary pay-btn">
-          <span>📱</span> Pagar por Contactless (NFC)
+      <div class="action-stack">
+        <button id="btn-add-another" class="btn secondary">+ Agregar Otra Tarjeta</button>
+        <button id="btn-activate-screen-card" class="btn primary glow">
+          📱 Activar Pantalla como Tarjeta NFC
         </button>
       </div>
+    </section>
+
+    <section id="step-4" class="step-view hidden">
+      <header>
+        <h1>Modo Tarjeta Contactless</h1>
+        <p class="subtitle">Aproxime la pantalla del celular a la terminal de pago (POS)</p>
+      </header>
+
+      <div id="virtual-card-display" class="interactive-card">
+        <div class="chip"></div>
+        <div class="nfc-waves">📡</div>
+        <div class="card-bank-label" id="v-bank">BANCO</div>
+        <div class="card-number-label" id="v-number">•••• •••• •••• ••••</div>
+        <div class="card-bottom">
+          <span id="v-holder">TITULAR</span>
+          <span>CVV ROTATIVO: <strong id="v-cvv">...</strong></span>
+        </div>
+      </div>
+
+      <div class="nfc-status-box">
+        <div class="pulse-dot"></div>
+        <span>Emisión NFC activa - Listo para cobrar</span>
+      </div>
+
+      <button id="btn-exit-nfc" class="btn secondary margin-top">Volver a la Billetera</button>
+    </section>
+
+    <section id="step-5" class="step-view hidden">
+      <header>
+        <h1>Gestión de Suscripciones</h1>
+        <p class="subtitle">Cancela cobros indeseados con 1 clic</p>
+      </header>
+
+      <div class="subs-list">
+        <div class="sub-item">
+          <div>
+            <strong>Netflix Ultra HD</strong>
+            <p>$17.99 / mes • Tarjeta eBROU</p>
+          </div>
+          <button class="btn danger-btn" onclick="cancelSub(this, 'Netflix')">Bloquear</button>
+        </div>
+        <div class="sub-item">
+          <div>
+            <strong>Spotify Family</strong>
+            <p>$9.99 / mes • Tarjeta Prex</p>
+          </div>
+          <button class="btn danger-btn" onclick="cancelSub(this, 'Spotify')">Bloquear</button>
+        </div>
+      </div>
+
+      <div class="support-box">
+        <h3>¿Problemas con un cobro?</h3>
+        <p>Soporte humano directo sin bots de espera.</p>
+        <button id="btn-human-support" class="btn secondary">Hablar con un Agente</button>
+      </div>
+
+      <button id="btn-back-dashboard" class="btn primary margin-top">Volver al Panel</button>
     </section>
 
   </div>
