@@ -11,17 +11,22 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout del código
+        uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Configurar Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
 
-      - run: flutter pub get
-      - run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+      - name: Instalar dependencias
+        run: flutter pub get
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Compilar para Web
+        run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Desplegar en GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          folder: build/web
+          branch: gh-pages
